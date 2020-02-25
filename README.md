@@ -1,6 +1,6 @@
 # RongCallKitQuickStart-ios
 
-1. 请在登录官网获取AppKey, 填写在 ViewController.m的下面方法中
+1. 请登录官网获取AppKey, 填写在 ViewController.m的下面方法中
     [[RCIMClient sharedRCIMClient] initWithAppKey:@""]; //请在融云官网获取AppKey
     
 2. 请使用自定义 User1的ID 和 User2的ID, 生成对应 User1的Token 和 User1的Token, 填写在 ViewController.m中

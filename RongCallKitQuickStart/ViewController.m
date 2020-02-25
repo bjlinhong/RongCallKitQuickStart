@@ -47,7 +47,7 @@
     
     [[RCIMClient sharedRCIMClient] initWithAppKey:@""]; //请登录融云官网获取AppKey
     [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Verbose;
-    [RCCall sharedRCCall];
+    [RCCall sharedRCCall]; //必须初始化, 否则无法收到来电
     [self initUIView];
 }
 
