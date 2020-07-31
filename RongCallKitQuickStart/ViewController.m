@@ -112,34 +112,30 @@
 
 - (void)callUser1ButtonAction {
     self.isContect1 = YES;
-    [[RCIMClient sharedRCIMClient] connectWithToken:self.callUser1Token success:^(NSString *userId) {
+    [[RCIMClient sharedRCIMClient] connectWithToken:self.callUser1Token
+                                           dbOpened:^(RCDBErrorCode code) {}
+                                            success:^(NSString *userId) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.statusLabel.text = [NSString stringWithFormat:@"  Success UserId: %@", userId];
         });
-    } error:^(RCConnectErrorCode status) {
+    } error:^(RCConnectErrorCode errorCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"  Error status: %zd", status];
-        });
-    } tokenIncorrect:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"  TokenIncorrect"];
+            self.statusLabel.text = [NSString stringWithFormat:@"  Error status: %zd", errorCode];
         });
     }];
 }
 
 - (void)callUser2ButtonAction {
     self.isContect1 = NO;
-    [[RCIMClient sharedRCIMClient] connectWithToken:self.callUser2Token success:^(NSString *userId) {
+    [[RCIMClient sharedRCIMClient] connectWithToken:self.callUser2Token
+                                           dbOpened:^(RCDBErrorCode code) {}
+                                            success:^(NSString *userId) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.statusLabel.text = [NSString stringWithFormat:@"Success UserId: %@", userId];
         });
-    } error:^(RCConnectErrorCode status) {
+    } error:^(RCConnectErrorCode errorCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"Error status: %zd", status];
-        });
-    } tokenIncorrect:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"tokenIncorrect"];
+            self.statusLabel.text = [NSString stringWithFormat:@"Error status: %zd", errorCode];
         });
     }];
 }
