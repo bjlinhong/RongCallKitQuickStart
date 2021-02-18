@@ -169,12 +169,16 @@
 - (void)callButtonAction {
     if (self.isSingleCall) {
         NSString *calledUserId = self.isContect1 ? self.callUser2Id : self.callUser1Id;
-        [[RCCall sharedRCCall] startSingleCall:calledUserId mediaType:self.mediaType];
+        [[RCCall sharedRCCall] startSingleCall:calledUserId
+                                     mediaType:self.mediaType];
     }
     else {
         NSAssert(self.targetId.length > 0, @"群组的self.targetId不能为空, 请填写正确的群组ID, 否则无法正常发起呼叫");
         NSArray *userIdArray = self.isContect1 ? @[self.callUser2Id] : @[self.callUser1Id];
-        [[RCCall sharedRCCall] startMultiCallViewController:ConversationType_GROUP targetId:self.targetId mediaType:self.mediaType userIdList:userIdArray];
+        [[RCCall sharedRCCall] startMultiCallViewController:ConversationType_GROUP
+                                                   targetId:self.targetId
+                                                  mediaType:self.mediaType
+                                                 userIdList:userIdArray];
     }
 }
 
