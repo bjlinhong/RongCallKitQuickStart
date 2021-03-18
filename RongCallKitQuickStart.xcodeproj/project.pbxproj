@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		391AC21F234EDD07008DC9FB /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 391AC21E234EDD06008DC9FB /* CallKit.framework */; };
 		39321472234ECB39006A857C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39321471234ECB39006A857C /* AppDelegate.m */; };
 		39321475234ECB39006A857C /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39321474234ECB39006A857C /* SceneDelegate.m */; };
 		39321478234ECB39006A857C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39321477234ECB39006A857C /* ViewController.m */; };
@@ -15,11 +14,24 @@
 		3932147D234ECB3D006A857C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3932147C234ECB3D006A857C /* Assets.xcassets */; };
 		39321480234ECB3D006A857C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3932147E234ECB3D006A857C /* LaunchScreen.storyboard */; };
 		39321483234ECB3D006A857C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 39321482234ECB3D006A857C /* main.m */; };
-		B96B704F4E9D94FD9B9AE95C /* libPods-RongCallKitQuickStart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A18F77E00B5D79741EDD9BE9 /* libPods-RongCallKitQuickStart.a */; };
+		39B45EB0260220AC009B6E27 /* RCCallRequestJoinMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 39B45EAD260220AC009B6E27 /* RCCallRequestJoinMessage.m */; };
+		51BFA1351CFB08E32C09F295 /* libPods-RongCallKitQuickStart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A18F77E00B5D79741EDD9BE9 /* libPods-RongCallKitQuickStart.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3990112D23BAF0A500784CFE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		391AC21E234EDD06008DC9FB /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		3932146D234ECB39006A857C /* RongCallKitQuickStart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RongCallKitQuickStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39321470234ECB39006A857C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		39321471234ECB39006A857C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -32,6 +44,8 @@
 		3932147F234ECB3D006A857C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39321481234ECB3D006A857C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39321482234ECB3D006A857C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		39B45EAD260220AC009B6E27 /* RCCallRequestJoinMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCCallRequestJoinMessage.m; sourceTree = "<group>"; };
+		39B45EAE260220AC009B6E27 /* RCCallRequestJoinMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCCallRequestJoinMessage.h; sourceTree = "<group>"; };
 		84E0BC0CF6DFCF97D14B0257 /* Pods-RongCallKitQuickStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RongCallKitQuickStart.debug.xcconfig"; path = "Target Support Files/Pods-RongCallKitQuickStart/Pods-RongCallKitQuickStart.debug.xcconfig"; sourceTree = "<group>"; };
 		8FAB199B87D856BCF6EED485 /* Pods-RongCallKitQuickStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RongCallKitQuickStart.release.xcconfig"; path = "Target Support Files/Pods-RongCallKitQuickStart/Pods-RongCallKitQuickStart.release.xcconfig"; sourceTree = "<group>"; };
 		A18F77E00B5D79741EDD9BE9 /* libPods-RongCallKitQuickStart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RongCallKitQuickStart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,8 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				391AC21F234EDD07008DC9FB /* CallKit.framework in Frameworks */,
-				B96B704F4E9D94FD9B9AE95C /* libPods-RongCallKitQuickStart.a in Frameworks */,
+				51BFA1351CFB08E32C09F295 /* libPods-RongCallKitQuickStart.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,7 +66,6 @@
 		049867158BB31F799F46E8C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				391AC21E234EDD06008DC9FB /* CallKit.framework */,
 				A18F77E00B5D79741EDD9BE9 /* libPods-RongCallKitQuickStart.a */,
 			);
 			name = Frameworks;
@@ -89,6 +101,7 @@
 		3932146F234ECB39006A857C /* RongCallKitQuickStart */ = {
 			isa = PBXGroup;
 			children = (
+				39B45EAC260220AC009B6E27 /* Message */,
 				39321470234ECB39006A857C /* AppDelegate.h */,
 				39321471234ECB39006A857C /* AppDelegate.m */,
 				39321473234ECB39006A857C /* SceneDelegate.h */,
@@ -104,6 +117,15 @@
 			path = RongCallKitQuickStart;
 			sourceTree = "<group>";
 		};
+		39B45EAC260220AC009B6E27 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				39B45EAE260220AC009B6E27 /* RCCallRequestJoinMessage.h */,
+				39B45EAD260220AC009B6E27 /* RCCallRequestJoinMessage.m */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -116,6 +138,8 @@
 				3932146A234ECB39006A857C /* Frameworks */,
 				3932146B234ECB39006A857C /* Resources */,
 				1C1E2FA269866636F2F7CD0F /* [CP] Copy Pods Resources */,
+				3990112D23BAF0A500784CFE /* Embed App Extensions */,
+				C69CA64B08C00A1D385A46D8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -211,6 +235,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C69CA64B08C00A1D385A46D8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RongCallKitQuickStart/Pods-RongCallKitQuickStart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RongCallKitQuickStart/Pods-RongCallKitQuickStart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RongCallKitQuickStart/Pods-RongCallKitQuickStart-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -222,6 +263,7 @@
 				39321472234ECB39006A857C /* AppDelegate.m in Sources */,
 				39321483234ECB3D006A857C /* main.m in Sources */,
 				39321475234ECB39006A857C /* SceneDelegate.m in Sources */,
+				39B45EB0260220AC009B6E27 /* RCCallRequestJoinMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,15 +405,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				DEVELOPMENT_TEAM = CQJSB93Y3D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RongCallKitQuickStart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.im.RongCallKitQuickStart;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.callkitquickstart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -383,15 +426,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9CVMN4UZK4;
+				DEVELOPMENT_TEAM = CQJSB93Y3D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RongCallKitQuickStart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.im.RongCallKitQuickStart;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.rongcloud.callkitquickstart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
