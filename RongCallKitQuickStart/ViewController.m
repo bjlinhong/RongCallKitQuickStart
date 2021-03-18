@@ -221,12 +221,34 @@
 
 - (void)callButtonAction {
     if (self.isSingleCall) {
-        [[RCCall sharedRCCall] startSingleCall:[self getLocalUserId]
+        NSString *calledUserId;
+        if (self.isContect1) {
+            calledUserId = self.callUser2Id;
+        }
+        else if (self.isContect2) {
+            calledUserId = self.callUser1Id;
+        }
+        else if (self.isContect3) {
+            NSAssert(NO, @"CallUser3仅用于群通话时, 主动加入通话使用, 请使用CallUser1或CallUser2发起呼叫");
+        }
+        
+        [[RCCall sharedRCCall] startSingleCall:calledUserId
                                      mediaType:self.mediaType];
     }
     else {
         NSAssert(self.targetId.length > 0, @"群组的self.targetId不能为空, 请填写正确的群组ID, 否则无法正常发起呼叫");
-        NSArray *userIdArray = self.isContect1 ? @[self.callUser2Id] : @[self.callUser1Id];
+        
+        NSArray *userIdArray;
+        if (self.isContect1) {
+            userIdArray = @[self.callUser2Id];
+        }
+        else if (self.isContect2) {
+            userIdArray = @[self.callUser1Id];
+        }
+        else if (self.isContect3) {
+            NSAssert(NO, @"CallUser3仅用于群通话时, 主动加入通话使用, 请使用CallUser1或CallUser2发起呼叫");
+        }
+        
         [[RCCall sharedRCCall] startMultiCallViewController:ConversationType_GROUP
                                                    targetId:self.targetId
                                                   mediaType:self.mediaType
