@@ -3,8 +3,8 @@ platform :ios, '9.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'RongCallKitQuickStart' do
+  use_frameworks!
 
- pod 'RongCloudIM'
- pod 'RongCloudRTC'
+ pod 'RongCloudRTC', '5.1.5'
 
 end
