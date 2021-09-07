@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <RongIMLib/RongIMLib.h>
 
 @interface AppDelegate ()
 
