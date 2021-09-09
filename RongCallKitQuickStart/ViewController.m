@@ -11,13 +11,14 @@
 #import <RongCallKit/RongCallKit.h>
 #import "RCCallRequestJoinMessage.h"
 #import <RongRTCLib/RongRTCLib.h>
+#import "CallRecordViewController.h"
 
 
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
 
-@interface ViewController () <RCIMReceiveMessageDelegate>
+@interface ViewController () <RCIMReceiveMessageDelegate, CallRecordDelegate>
 
 @property (nonatomic, strong) NSString *targetId;
 @property (nonatomic, strong) NSString *callUser1Id, *callUser2Id, *callUser3Id;
@@ -28,8 +29,10 @@
 @property (nonatomic, strong) UIButton *callUser1Button, *callUser2Button, *callUser3Button;
 @property (nonatomic, strong) UIButton *joinCallButton;
 @property (nonatomic, strong) UIButton *callButton;
+@property (nonatomic, strong) UIButton *callRecordsButton;
 @property (nonatomic, strong) UISwitch *audioVideoSwitch, *singleMultiSwitch;
 @property (nonatomic, strong) UILabel *mediaLabel, *singleMultiLabel;
+@property (nonatomic, strong) CallRecordViewController *callRecordViewController;
 
 @end
 
@@ -67,6 +70,11 @@
     [self initUIView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
 - (void)initUIView {
     // 连接状态信息
     self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, 40)];
@@ -76,7 +84,7 @@
     CGFloat buttonWidth = (kScreenWidth - 20 * 4) / 3;
     
     self.callUser1Button = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.callUser1Button.frame = CGRectMake(20, self.statusLabel.frame.origin.y + self.statusLabel.frame.size.height, buttonWidth, 60);
+    self.callUser1Button.frame = CGRectMake(20, self.statusLabel.frame.origin.y + self.statusLabel.frame.size.height, buttonWidth, 40);
     self.callUser1Button.backgroundColor = [UIColor redColor];
     [self.callUser1Button setTitle:@"CallUser1" forState:UIControlStateNormal];
     [self.callUser1Button setTitle:@"CallUser1" forState:UIControlStateHighlighted];
@@ -84,7 +92,7 @@
     [self.view addSubview:self.callUser1Button];
     
     self.callUser2Button = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.callUser2Button.frame = CGRectMake(20 * 2 + buttonWidth, self.statusLabel.frame.origin.y + self.statusLabel.frame.size.height, buttonWidth, 60);
+    self.callUser2Button.frame = CGRectMake(20 * 2 + buttonWidth, self.statusLabel.frame.origin.y + self.statusLabel.frame.size.height, buttonWidth, 40);
     self.callUser2Button.backgroundColor = [UIColor redColor];
     [self.callUser2Button setTitle:@"CallUser2" forState:UIControlStateNormal];
     [self.callUser2Button setTitle:@"CallUser2" forState:UIControlStateHighlighted];
@@ -92,7 +100,7 @@
     [self.view addSubview:self.callUser2Button];
     
     self.callUser3Button = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.callUser3Button.frame = CGRectMake(20 * 3 + buttonWidth * 2, self.statusLabel.frame.origin.y + self.statusLabel.frame.size.height, buttonWidth, 60);
+    self.callUser3Button.frame = CGRectMake(20 * 3 + buttonWidth * 2, self.statusLabel.frame.origin.y + self.statusLabel.frame.size.height, buttonWidth, 40);
     self.callUser3Button.backgroundColor = [UIColor redColor];
     [self.callUser3Button setTitle:@"CallUser3" forState:UIControlStateNormal];
     [self.callUser3Button setTitle:@"CallUser3" forState:UIControlStateHighlighted];
@@ -108,33 +116,41 @@
     [self.callButton addTarget:self action:@selector(callButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.callButton];
     
+    self.callRecordsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.callRecordsButton.frame = CGRectMake(40, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
+    self.callRecordsButton.backgroundColor = [UIColor blueColor];
+    [self.callRecordsButton setTitle:@"通话记录" forState:UIControlStateNormal];
+    [self.callRecordsButton setTitle:@"通话记录" forState:UIControlStateHighlighted];
+    [self.callRecordsButton addTarget:self action:@selector(callRecordsButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.callRecordsButton];
+    
     self.joinCallButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.joinCallButton.frame = CGRectMake(40, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
-    self.joinCallButton.backgroundColor = [UIColor blueColor];
+    self.joinCallButton.frame = CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
+    self.joinCallButton.backgroundColor = [UIColor orangeColor];
     [self.joinCallButton setTitle:@"主动加入" forState:UIControlStateNormal];
     [self.joinCallButton setTitle:@"主动加入" forState:UIControlStateHighlighted];
     [self.joinCallButton addTarget:self action:@selector(joinCallButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.joinCallButton];
     
     // 通话选项
-    self.singleMultiLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 44, 100, 24)];
+    self.singleMultiLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 24, 100, 24)];
     self.singleMultiLabel.text = @"单人通话";
     self.singleMultiLabel.textColor = [UIColor orangeColor];
     self.singleMultiLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.singleMultiLabel];
     
-    self.singleMultiSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(230, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 40, 60, 32)];
+    self.singleMultiSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(230, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 20, 60, 32)];
     [self.singleMultiSwitch addTarget:self action:@selector(singleMultiSwitchAction) forControlEvents:UIControlEventValueChanged];
     [self.singleMultiSwitch setOn:YES];
     [self.view addSubview:self.singleMultiSwitch];
     
-    self.mediaLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.singleMultiLabel.frame.origin.x, self.singleMultiLabel.frame.origin.y + self.singleMultiLabel.frame.size.height + 24, 100, 24)];
+    self.mediaLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.singleMultiLabel.frame.origin.x, self.singleMultiLabel.frame.origin.y + self.singleMultiLabel.frame.size.height + 18, 100, 24)];
     self.mediaLabel.text = @"视频通话";
     self.mediaLabel.textColor = [UIColor redColor];
     self.mediaLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.mediaLabel];
     
-    self.audioVideoSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(230, self.singleMultiSwitch.frame.origin.y + self.singleMultiSwitch.frame.size.height + 20, 60, 32)];
+    self.audioVideoSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(230, self.singleMultiSwitch.frame.origin.y + self.singleMultiSwitch.frame.size.height + 12, 60, 32)];
     [self.audioVideoSwitch addTarget:self action:@selector(audioVideoSwitchAction) forControlEvents:UIControlEventValueChanged];
     [self.audioVideoSwitch setOn:YES];
     [self.view addSubview:self.audioVideoSwitch];
@@ -242,10 +258,10 @@
         
         NSArray *userIdArray;
         if (self.isContect1) {
-            userIdArray = @[self.callUser2Id];
+            userIdArray = @[self.callUser2Id, self.callUser3Id];
         }
         else if (self.isContect2) {
-            userIdArray = @[self.callUser1Id];
+            userIdArray = @[self.callUser1Id, self.callUser3Id];
         }
         else if (self.isContect3) {
             NSAssert(NO, @"CallUser3仅用于群通话时, 主动加入通话使用, 请使用CallUser1或CallUser2发起呼叫");
@@ -271,6 +287,15 @@
     }
     
     [self sendRequestJoinSignal:self.targetId to:receiverList];
+}
+
+- (void)callRecordsButtonAction {
+    self.callRecordViewController = [[CallRecordViewController alloc] init];
+    self.callRecordViewController.delegate = self;
+    
+    if (![self.navigationController.topViewController isKindOfClass:[CallRecordViewController class]]) {
+        [self.navigationController pushViewController:self.callRecordViewController animated:YES];
+    }
 }
 
 #pragma mark - Message
@@ -302,6 +327,17 @@
                                                   mediaType:self.mediaType
                                                  userIdList:@[sendUserId]];
     }
+}
+
+- (NSString *)getRemoteUserId {
+    if (self.isContect1) {
+        return self.callUser2Id;
+    }
+    else if (self.isContect2) {
+        return self.callUser1Id;
+    }
+    
+    return @"";
 }
 
 #pragma mark - Private
