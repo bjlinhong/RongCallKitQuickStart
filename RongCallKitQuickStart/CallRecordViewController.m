@@ -58,7 +58,6 @@
     return 44;
 }
 
-
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -77,7 +76,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifer];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.textLabel.textColor = [UIColor blackColor];
     }
     
@@ -85,12 +84,11 @@
     RCCallSummaryMessage *callMessage = (RCCallSummaryMessage *)rcMessage.content;
     if (callMessage.duration > 1000) {
         cell.textLabel.text =
-            [NSString stringWithFormat:@"%@ %@", RCCallKitLocalizedString(@"VoIPCallTotalTime"),
+            [NSString stringWithFormat:@"通话时长 %@",
                                        [RCCallKitUtility getReadableStringForTime:(long)(callMessage.duration / 1000)]];
     } else {
         cell.textLabel.text = [RCCallKitUtility getReadableStringForMessageCell:callMessage.hangupReason];
     }
-    
     
     NSMutableString *detailedMsg = [NSMutableString string];
     if (rcMessage.messageDirection == MessageDirection_SEND) {
