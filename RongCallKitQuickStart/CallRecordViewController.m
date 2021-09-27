@@ -23,7 +23,6 @@
     [super viewDidLoad];
     
     self.title = @"通话记录";
-    self.view.backgroundColor = [UIColor redColor];
     
     [self initData];
     [self initView];

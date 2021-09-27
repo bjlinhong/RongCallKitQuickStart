@@ -2,7 +2,7 @@
 Version="4"
 
 if [ ${Version} = "4" ]; then
-    echo "*** RTC 4.0 started ****"
+    echo "**** RTC 4.0 started ****"
 
     #IMlib
     rm -rf ${PROJECT_DIR}/Pods/RongCloudIM/RongCloudIM/RongIMLib.framework
@@ -23,12 +23,12 @@ if [ ${Version} = "4" ]; then
     rm -rf ${PROJECT_DIR}/Pods/RongCloudRTC/RongCloudRTC/RongCallKit.framework
     cp -af ~/Documents/ios-sealdev/ios-rtcsdk/RongCallKit/bin/RongCallKit.framework ${PROJECT_DIR}/Pods/RongCloudRTC/RongCloudRTC/
     
-    echo "*** RTC 4.0 ended ****"
+    echo "**** RTC 4.0 ended ****"
 ###-----------------------------------------------------------------------------------------###
 
 elif [ ${Version} = "5" ];then
         
-    echo "*** RTC 5.0 started ****"
+    echo "**** RTC 5.0 started ****"
 
     #RTCLib
     rm -rf ${PROJECT_DIR}/Pods/RongCloudRTC/RongCloudRTC/RongRTCLib.xcframework/ios-arm64_armv7/RongRTCLib.framework
@@ -44,5 +44,5 @@ elif [ ${Version} = "5" ];then
     rm -rf ${PROJECT_DIR}/Pods/RongCloudRTC/RongCloudRTC/RongCallKit.xcframework/ios-arm64_armv7/RongCallKit.framework
     cp -af ~/Documents/ios-sealdev/ios-rtcsdk/RongCallKit/bin/RongCallKit.framework ${PROJECT_DIR}/Pods/RongCloudRTC/RongCloudRTC/RongCallKit.xcframework/ios-arm64_armv7/
 
-    echo "*** RTC 5.0 ended ****"
+    echo "**** RTC 5.0 ended ****"
 fi
