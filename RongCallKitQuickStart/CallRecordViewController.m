@@ -80,13 +80,13 @@
     }
     
     RCMessage *rcMessage = (RCMessage *)self.messageArray[row];
-    RCCallSummaryMessage *callMessage = (RCCallSummaryMessage *)rcMessage.content;
-    if (callMessage.duration > 1000) {
+    RCCallSummaryMessage *summaryMessage = (RCCallSummaryMessage *)rcMessage.content;
+    if (summaryMessage.duration > 1000) {
         cell.textLabel.text =
             [NSString stringWithFormat:@"通话时长 %@",
-                                       [RCCallKitUtility getReadableStringForTime:(long)(callMessage.duration / 1000)]];
+                                       [RCCallKitUtility getReadableStringForTime:(long)(summaryMessage.duration / 1000)]];
     } else {
-        cell.textLabel.text = [RCCallKitUtility getReadableStringForMessageCell:callMessage.hangupReason];
+        cell.textLabel.text = [RCCallKitUtility getReadableStringForMessageCell:summaryMessage.hangupReason];
     }
     
     NSMutableString *detailedMsg = [NSMutableString string];
@@ -97,9 +97,20 @@
         [detailedMsg appendString:@"对方"];
     }
     
+    switch (summaryMessage.mediaType) {
+        case RCCallMediaAudio:
+            [detailedMsg appendString:@" 音频"];
+            break;
+        case RCCallMediaVideo:
+            [detailedMsg appendString:@" 视频"];
+            break;
+        default:
+            break;
+    }
+    
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:rcMessage.sentTime/1000];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@" yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@" MM-dd HH:mm:ss"];
     NSString *currentDateStr = [dateFormatter stringFromDate:date];
     [detailedMsg appendString:currentDateStr];
     

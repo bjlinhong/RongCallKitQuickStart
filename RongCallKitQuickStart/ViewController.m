@@ -172,7 +172,7 @@
                                            dbOpened:^(RCDBErrorCode code) {}
                                             success:^(NSString *userId) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"  Success UserId: %@", userId];
+            self.statusLabel.text = [NSString stringWithFormat:@"  Success CallUser1: %@", userId];
         });
     } error:^(RCConnectErrorCode errorCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -187,7 +187,7 @@
                                            dbOpened:^(RCDBErrorCode code) {}
                                             success:^(NSString *userId) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"Success UserId: %@", userId];
+            self.statusLabel.text = [NSString stringWithFormat:@"Success CallUser2: %@", userId];
         });
     } error:^(RCConnectErrorCode errorCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -202,7 +202,7 @@
                                            dbOpened:^(RCDBErrorCode code) {}
                                             success:^(NSString *userId) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.statusLabel.text = [NSString stringWithFormat:@"Success Join User3Id: %@", userId];
+            self.statusLabel.text = [NSString stringWithFormat:@"Success Join CallUser3: %@", userId];
         });
     } error:^(RCConnectErrorCode errorCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
