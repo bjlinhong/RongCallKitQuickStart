@@ -28,11 +28,15 @@
 @property (nonatomic, strong) UILabel *statusLabel, *infoLabel;
 @property (nonatomic, strong) UIButton *callUser1Button, *callUser2Button, *callUser3Button;
 @property (nonatomic, strong) UIButton *joinCallButton;
+@property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *callButton;
 @property (nonatomic, strong) UIButton *callRecordsButton;
 @property (nonatomic, strong) UISwitch *audioVideoSwitch, *singleMultiSwitch;
 @property (nonatomic, strong) UILabel *mediaLabel, *singleMultiLabel;
 @property (nonatomic, strong) CallRecordViewController *callRecordViewController;
+@property (nonatomic, assign) BOOL isPlaying;
+@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVPlayerLayer *playerLayer;
 
 @end
 
@@ -131,6 +135,14 @@
     [self.joinCallButton setTitle:@"主动加入" forState:UIControlStateHighlighted];
     [self.joinCallButton addTarget:self action:@selector(joinCallButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.joinCallButton];
+    
+    self.playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.playButton.frame = CGRectMake(self.joinCallButton.frame.origin.x + self.joinCallButton.frame.size.width + 20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
+    self.playButton.backgroundColor = [UIColor lightGrayColor];
+    [self.playButton setTitle:@"播放视频" forState:UIControlStateNormal];
+    [self.playButton setTitle:@"播放视频" forState:UIControlStateHighlighted];
+    [self.playButton addTarget:self action:@selector(playButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.playButton];
     
     // 通话选项
     self.singleMultiLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 24, 100, 24)];
@@ -289,6 +301,33 @@
     [self sendRequestJoinSignal:self.targetId to:receiverList];
 }
 
+- (void)playButtonAction {
+    if (!self.isPlaying) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"videolow" ofType:@"mp4"];
+        NSURL *url = [NSURL fileURLWithPath:filePath];
+        
+        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
+        [playerItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+
+        self.player = [AVPlayer playerWithPlayerItem:playerItem];
+        self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        
+        self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
+        self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        self.playerLayer.frame = CGRectMake(0, self.joinCallButton.frame.origin.y + self.joinCallButton.frame.size.height + 20, kScreenWidth, 360);
+        [self.view.layer addSublayer:self.playerLayer];
+    }
+    else {
+        [self.player pause];
+        [self.playerLayer removeFromSuperlayer];
+        
+        self.player = nil;
+        self.playerLayer = nil;
+    }
+    
+    self.isPlaying = !self.isPlaying;
+}
+
 - (void)callRecordsButtonAction {
     self.callRecordViewController = [[CallRecordViewController alloc] init];
     self.callRecordViewController.delegate = self;
@@ -326,6 +365,31 @@
                                                    targetId:self.targetId
                                                   mediaType:self.mediaType
                                                  userIdList:@[sendUserId]];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:@"status"]) {
+        //取出status的新值
+        AVPlayerItemStatus status = [change[NSKeyValueChangeNewKey] integerValue];
+        
+        switch (status) {
+            case AVPlayerItemStatusFailed:
+                NSLog(@"视频资源有误，加载失败");
+                break;
+            case AVPlayerItemStatusReadyToPlay:
+                NSLog(@"视频资源加载成功，准备好播放了");
+                [self.player play];
+                break;
+            case AVPlayerItemStatusUnknown:
+                NSLog(@"视频资源出现未知错误");
+                break;
+            default:
+                break;
+        }
     }
 }
 
