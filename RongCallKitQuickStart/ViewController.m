@@ -320,9 +320,6 @@
     else {
         [self.player pause];
         [self.playerLayer removeFromSuperlayer];
-        
-        self.player = nil;
-        self.playerLayer = nil;
     }
     
     self.isPlaying = !self.isPlaying;
