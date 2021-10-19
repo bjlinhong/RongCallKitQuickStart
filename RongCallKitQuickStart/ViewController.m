@@ -81,7 +81,7 @@
 
 - (void)initUIView {
     // 连接状态信息
-    self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, kScreenWidth, 40)];
+    self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, kScreenWidth, 40)];
     [self.view addSubview:self.statusLabel];
     
     // 连接IM服务按钮
@@ -113,7 +113,7 @@
     
     // 通话按钮
     self.callButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.callButton.frame = CGRectMake(40, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 20, 100, 60);
+    self.callButton.frame = CGRectMake(20, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 20, 100, 60);
     self.callButton.backgroundColor = [UIColor greenColor];
     [self.callButton setTitle:@"发起呼叫" forState:UIControlStateNormal];
     [self.callButton setTitle:@"发起呼叫" forState:UIControlStateHighlighted];
@@ -121,7 +121,7 @@
     [self.view addSubview:self.callButton];
     
     self.callRecordsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.callRecordsButton.frame = CGRectMake(40, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
+    self.callRecordsButton.frame = CGRectMake(20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 44);
     self.callRecordsButton.backgroundColor = [UIColor blueColor];
     [self.callRecordsButton setTitle:@"通话记录" forState:UIControlStateNormal];
     [self.callRecordsButton setTitle:@"通话记录" forState:UIControlStateHighlighted];
@@ -129,7 +129,7 @@
     [self.view addSubview:self.callRecordsButton];
     
     self.joinCallButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.joinCallButton.frame = CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
+    self.joinCallButton.frame = CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width + 20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 44);
     self.joinCallButton.backgroundColor = [UIColor orangeColor];
     [self.joinCallButton setTitle:@"主动加入" forState:UIControlStateNormal];
     [self.joinCallButton setTitle:@"主动加入" forState:UIControlStateHighlighted];
@@ -137,14 +137,14 @@
     [self.view addSubview:self.joinCallButton];
     
     self.playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.playButton.frame = CGRectMake(self.joinCallButton.frame.origin.x + self.joinCallButton.frame.size.width + 20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 60);
+    self.playButton.frame = CGRectMake(self.joinCallButton.frame.origin.x + self.joinCallButton.frame.size.width + 20, self.callButton.frame.origin.y + self.callButton.frame.size.height + 20, 100, 44);
     self.playButton.backgroundColor = [UIColor lightGrayColor];
     [self.playButton setTitle:@"播放视频" forState:UIControlStateNormal];
     [self.playButton setTitle:@"播放视频" forState:UIControlStateHighlighted];
     [self.playButton addTarget:self action:@selector(playButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.playButton];
     
-    // 通话选项
+    // 通话选项 Switch
     self.singleMultiLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.callButton.frame.origin.x + self.callButton.frame.size.width, self.callUser1Button.frame.origin.y + self.callUser1Button.frame.size.height + 24, 100, 24)];
     self.singleMultiLabel.text = @"单人通话";
     self.singleMultiLabel.textColor = [UIColor orangeColor];
@@ -388,6 +388,11 @@
                 break;
         }
     }
+}
+
+- (void)sensorStateChange:(NSNotificationCenter *)notification {
+    NSString *sensorTip = [UIDevice currentDevice].proximityState ? @"屏幕熄灭" : @"屏幕亮起";
+    NSLog(@"sensorTip: %@", sensorTip);
 }
 
 - (NSString *)getRemoteUserId {
