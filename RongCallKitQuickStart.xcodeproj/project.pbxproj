@@ -18,7 +18,6 @@
 		3990110F23BA202200784CFE /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3990110D23BA202200784CFE /* UserNotificationsUI.framework */; };
 		3990111023BA202200784CFE /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3990110E23BA202200784CFE /* UserNotifications.framework */; };
 		39B45EB0260220AC009B6E27 /* RCCallRequestJoinMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 39B45EAD260220AC009B6E27 /* RCCallRequestJoinMessage.m */; };
-		39B45EB826022112009B6E27 /* video_demo1_low.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 39B45EB726022112009B6E27 /* video_demo1_low.mp4 */; };
 		39C0DBB526945F2100D3EFBC /* QuickStartBuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = 39C0DBB426945F2100D3EFBC /* QuickStartBuild.sh */; };
 		39E4C3E426E9C59A008B09B1 /* CallRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4C3E326E9C59A008B09B1 /* CallRecordViewController.m */; };
 /* End PBXBuildFile section */
@@ -162,7 +161,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 39321486234ECB3D006A857C /* Build configuration list for PBXNativeTarget "RongCallKitQuickStart" */;
 			buildPhases = (
-				391AC231234EFFD4008DC9FB /* ShellScript */,
 				39321469234ECB39006A857C /* Sources */,
 				3932146A234ECB39006A857C /* Frameworks */,
 				3932146B234ECB39006A857C /* Resources */,
@@ -222,26 +220,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		391AC231234EFFD4008DC9FB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "sh ./Script/QuickStartBuild.sh\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		39321469234ECB39006A857C /* Sources */ = {
