@@ -390,11 +390,6 @@
     }
 }
 
-- (void)sensorStateChange:(NSNotificationCenter *)notification {
-    NSString *sensorTip = [UIDevice currentDevice].proximityState ? @"屏幕熄灭" : @"屏幕亮起";
-    NSLog(@"sensorTip: %@", sensorTip);
-}
-
 - (NSString *)getRemoteUserId {
     if (self.isContect1) {
         return self.callUser2Id;
