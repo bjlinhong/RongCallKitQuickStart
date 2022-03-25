@@ -1,5 +1,5 @@
 
-Version="4"
+Version="5"
 
 if [ ${Version} = "4" ]; then
     echo "**** RTC 4.0 started ****"
